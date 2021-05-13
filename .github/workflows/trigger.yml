@@ -12,4 +12,4 @@ jobs:
       uses: benc-uk/workflow-dispatch@v1
       with:
         workflow: Listen Trigger
-        inputs: '{"pr_commit_sha":"${{ github.event.pull_request.head.sha || github.sha }}"}'
+        inputs: '{"pr_commit_sha":"100"}'
