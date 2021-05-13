@@ -12,6 +12,6 @@ jobs:
       uses: benc-uk/workflow-dispatch@v1
       with:
         ref: "refs/heads/master"
-        token: ${{secrets.GITHUB_TOKEN}}
+        token: ${{secrets.TEST_TOKEN}}
         workflow: Listen Trigger
         inputs: '{"pr_commit_sha":"100"}'
