@@ -1,4 +1,4 @@
-name: Listen Trigger 2
+name: Listen Trigger
 on:
   workflow_dispatch:
     inputs:
