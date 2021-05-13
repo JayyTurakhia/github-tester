@@ -1,0 +1,16 @@
+name: Listen Trigger
+on:
+  workflow_dispatch:
+    inputs:
+      pr_commit_sha:
+        description: "Commit Id"
+        required: true
+
+jobs:
+  runs-on: ubuntu-latest
+  timeout-minutes: 2
+
+  steps:
+  - name: Dispatch Build Success
+    run: |
+      echo "Yes1"
