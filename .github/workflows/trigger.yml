@@ -3,12 +3,13 @@ on:
   push:
 
 jobs:
-  runs-on: ubuntu-latest
-  timeout-minutes: 2
+  trigger-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
 
-  steps:
-  - name: Dispatch Build Success
-    uses: benc-uk/workflow-dispatch@v1
+    steps:
+    - name: Dispatch Build Success
+      uses: benc-uk/workflow-dispatch@v1
       with:
       ref: "refs/heads/master"
       workflow: Listen Trigger

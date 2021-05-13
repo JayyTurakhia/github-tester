@@ -7,10 +7,11 @@ on:
         required: true
 
 jobs:
-  runs-on: ubuntu-latest
-  timeout-minutes: 2
+  listener-work:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
 
-  steps:
-  - name: Dispatch Build Success
-    run: |
-      echo "Yes1"
+    steps:
+    - name: Dispatch Build Success
+      run: |
+        echo "Yes1"
