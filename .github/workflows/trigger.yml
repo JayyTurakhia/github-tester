@@ -11,6 +11,5 @@ jobs:
     - name: Dispatch Build Success
       uses: benc-uk/workflow-dispatch@v1
       with:
-        ref: "refs/heads/master"
         workflow: Listen Trigger
         inputs: '{"pr_commit_sha":"${{ github.event.pull_request.head.sha || github.sha }}"}'
