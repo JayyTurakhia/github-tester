@@ -1,10 +1,7 @@
 name: Listen Trigger
 on:
-  workflow_dispatch:
-    inputs:
-      pr_commit_sha:
-        description: "Commit Id"
-        required: true
+  repository_dispatch:
+    types: [listen]
 
 jobs:
   listener-work-2:
