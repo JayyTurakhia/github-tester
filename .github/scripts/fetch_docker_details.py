@@ -1,6 +1,6 @@
 import yaml
 import sys
-FILENAME = '../dockerMeta/dockerDetails.yml'
+FILENAME = '.github/dockerMeta/dockerDetails.yml'
 
 def populateValues():
 	with open(FILENAME) as file:
