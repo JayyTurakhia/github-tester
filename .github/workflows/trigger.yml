@@ -25,8 +25,6 @@ jobs:
 
   fetch-docker-details:
     runs-on: [ubuntu-latest]
-    container:
-      image: python:alpine3.12
     timeout-minutes: 2
 
     steps:
@@ -35,12 +33,28 @@ jobs:
           ref: test1
 
       - uses: fabasoad/yaml-json-xml-converter-action@main
-        id: json2yaml
+        id: yaml2yaml
         with:
           path: '.github/dockerMeta/dockerDetails.yml'
           from: 'yaml'
           to: 'yaml'
       
+      - name: Print yaml2yaml result
+        run: echo "${{ steps.yaml2yaml.outputs.data }}"
+
+      - name: Print yaml2yaml result
+        run: echo "${{ steps.yaml2yaml.outputs.data["IsDocker"] }}"
+
+      - uses: fabasoad/yaml-json-xml-converter-action@main
+        id: json2yaml
+        with:
+          path: '.github/dockerMeta/dockerDetails.yml'
+          from: 'yaml'
+          to: 'json'
+      
       - name: Print json2yaml result
-        run: echo "${{ steps.json2yaml.outputs.data.IsDocker }}"
+        run: echo "${{ steps.json2yaml.outputs.data }}"
+
+      - name: Print json2yaml result
+        run: echo "${{ steps.json2yaml.outputs.data["IsDocker"] }}"
 
