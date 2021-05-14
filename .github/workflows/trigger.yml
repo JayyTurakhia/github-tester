@@ -23,5 +23,18 @@ jobs:
     #     workflow: Listen Trigger
     #     inputs: '{"pr_commit_sha":"100"}'
 
-        
+  fetch-docker-details:
+    runs-on: [ubuntu-latest]
+    container:
+      image: python:alpine3.12
+    timeout-minutes: 2
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Fetch Release Name
+        id: read-file
+        run: |
+          pip install pyyaml
+          data=$(python .github/scripts/fetch_docker_details.py)
+          print (data["IsDocker"])
 
