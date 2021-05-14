@@ -33,11 +33,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: test1
-          
+
       - name: Fetch Release Name
         id: read-file
         run: |
           pip install pyyaml
-          data=$(python .github/scripts/fetch_docker_details.py)
-          print (data["IsDocker"])
+          from fetch_docker_details import details
+          details["IsDocker"]
 
