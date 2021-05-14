@@ -34,10 +34,13 @@ jobs:
         with:
           ref: test1
 
-      - name: Fetch Release Name
-        id: read-file
-        run: |
-          pip install pyyaml
-          from fetch_docker_details import details
-          details["IsDocker"]
+      - uses: fabasoad/yaml-json-xml-converter-action@main
+        id: json2yaml
+        with:
+          path: '.github/dockerMeta/dockerDetails.yml'
+          from: 'yaml'
+          to: 'yaml'
+      
+      - name: Print json2yaml result
+        run: echo "${{ steps.json2yaml.outputs.data }}"
 
