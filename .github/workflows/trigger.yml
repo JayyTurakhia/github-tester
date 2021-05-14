@@ -76,6 +76,7 @@ jobs:
         run: |
           pip install shyaml
           details=$(cat .github/dockerMeta/dockerDetails.yml)
+          echo details
           echo "$(details | shyaml get-value IsDocker)"
           echo "$(details | shyaml get-value a)"
           echo "$(details | shyaml get-value b)"
