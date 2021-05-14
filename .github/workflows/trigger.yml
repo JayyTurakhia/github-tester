@@ -13,7 +13,7 @@ jobs:
       with:
         token: ${{secrets.TEST_TOKEN}}
         event-type: listen
-        client-payload: '{"pr_commit_sha":"100"}'
+        client-payload: '{"pr_commit_sha":"1010"}'
 
     # - name: Dispatch Build Success
     #   uses: benc-uk/workflow-dispatch@v1
