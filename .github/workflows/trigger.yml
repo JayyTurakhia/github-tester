@@ -45,6 +45,7 @@ jobs:
       - name: Print yaml2yaml result
         run: |
           echo "${{ steps.yaml2yaml.outputs.data.IsDocker }}"
+          
 
       - uses: fabasoad/yaml-json-xml-converter-action@main
         id: json2yaml
@@ -57,5 +58,7 @@ jobs:
         run: echo "${{ steps.json2yaml.outputs.data }}"
 
       - name: Print json2yaml result
-        run: echo "${{ steps.json2yaml.outputs.data.IsDocker }}"
+        run: | 
+          echo "${{ steps.json2yaml.outputs.data.IsDocker }}"
+          echo ${{ steps.yaml2yaml.outputs.data }} | jq '.[].IsDocker'
 
