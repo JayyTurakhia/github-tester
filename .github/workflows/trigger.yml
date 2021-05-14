@@ -59,5 +59,4 @@ jobs:
       - name: Print json2yaml result
         run: | 
           echo "${{ steps.json2yaml.outputs.data.IsDocker }}"
-          echo ${{ steps.yaml2yaml.outputs.data }} | jq '.[].IsDocker'
-
+          echo ${{ steps.yaml2yaml.outputs.data }} | jq .[].IsDocker
