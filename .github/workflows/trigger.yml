@@ -8,6 +8,9 @@ jobs:
     timeout-minutes: 2
 
     steps:
+    - name: Fail here
+      run:
+        asdasdasd
     - name: Publish Repo Dispatch
       uses: peter-evans/repository-dispatch@v1
       with:
