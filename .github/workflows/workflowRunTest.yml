@@ -1,0 +1,39 @@
+name: Notification
+on:
+  workflow_run:
+    workflows: 
+      - .NET Core
+      - Full Framework
+      - Post Build Success
+    types: 
+      - completed
+
+jobs:
+  notify-on-fail-test:
+    runs-on: [self-hosted, linux]
+    timeout-minutes: 2
+
+    steps:  
+      - name: Print event values
+        run: |  
+          echo ${{ github.event.workflow_run.conclusion }}
+          echo ${{ github.event.workflow_run.head_branch }}
+          echo ${GITHUB_REF#refs/heads/}
+
+  notify-on-fail:
+    runs-on: [self-hosted, linux]
+    if: ${{github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.head_branch == '$(echo ${GITHUB_REF#refs/heads/})'}}
+    timeout-minutes: 2
+
+    env:  
+      WEBHOOK: ${{secrets.MS_TEAMS_WEBHOOK}}
+    
+    steps:
+      - name: Notify on Build Failure
+        uses: skitionek/notify-microsoft-teams@master
+        with:
+          webhook_url: https://philips.webhook.office.com/webhookb2/${{env.WEBHOOK}}
+          overwrite: "{title: `Build failed on master ${{github.repository}}`}"
+          needs: ${{ toJson(needs) }}
+          job: "{\"status\": \"failure\"}"
+          steps: ${{ toJson(steps) }}
