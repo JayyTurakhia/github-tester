@@ -14,12 +14,15 @@ jobs:
     if: ${{ github.event.workflow_run.head_branch }} == '$(echo ${GITHUB_REF#refs/heads/})' && github.event.workflow_run.conclusion == 'success' 
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
+    
+    env:
+      MY_HOOK: ${{secrets.HOOK}}
 
     steps:
         - name: Notify on Build Failure
           uses: skitionek/notify-microsoft-teams@master
           with:
-            webhook_url: https://philips.webhook.office.com/webhookb2/${{secrets.HOOK}}
+            webhook_url: https://philips.webhook.office.com/webhookb2/$(echo ${{env.MY_HOOK}} )
             overwrite: "{title: `Build failed on master ${{github.repository}}`}"
             needs: ${{ toJson(needs) }}
             job: "{\"status\": \"failure\"}"
