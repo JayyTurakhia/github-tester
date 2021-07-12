@@ -22,7 +22,7 @@ jobs:
         - name: Notify on Build Failure
           uses: skitionek/notify-microsoft-teams@master
           with:
-            webhook_url: https://philips.webhook.office.com/webhookb2/$(echo ${{env.MY_HOOK}} )
+            webhook_url: ${{secrets.HOOK_URI}}
             overwrite: "{title: `Build failed on master ${{github.repository}}`}"
             needs: ${{ toJson(needs) }}
             job: "{\"status\": \"failure\"}"
