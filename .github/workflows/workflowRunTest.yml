@@ -11,7 +11,7 @@ on:
 
 jobs:
   notify-on-fail-test:
-    if: ${{ github.event.workflow_run.head_branch  == '$(echo ${GITHUB_REF#refs/heads/})' && github.event.workflow_run.conclusion == 'failure' }}
+    if: ${{ github.event.workflow_run.head_branch  == '$(echo ${GITHUB_REF#refs/heads/})' && github.event.workflow_run.conclusion == 'success' }}
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
     
@@ -27,3 +27,12 @@ jobs:
             needs: ${{ toJson(needs) }}
             job: "{\"status\": \"failure\"}"
             steps: ${{ toJson(steps) }}
+            
+        - name: Notify dedicated teams channel
+          uses: jdcargile/ms-teams-notification@v1.3
+          with:
+            github-token: ${{ github.token }} # this will use the runner's token.
+            ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
+            notification-summary: Build Failure notification 
+            notification-color: 17a2b8
+            timezone: America/New_York
