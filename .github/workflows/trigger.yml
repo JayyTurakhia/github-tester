@@ -8,12 +8,16 @@ jobs:
     timeout-minutes: 2
 
     steps:
-    - name: Publish Repo Dispatch
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{secrets.TEST_TOKEN}}
-        event-type: listen
-        client-payload: '{"pr_commit_sha":"10s10"}'
+    
+    - name: Hello
+      run: echo 'Hello'
+      
+#     - name: Publish Repo Dispatch
+#       uses: peter-evans/repository-dispatch@v1
+#       with:
+#         token: ${{secrets.TEST_TOKEN}}
+#         event-type: listen
+#         client-payload: '{"pr_commit_sha":"10s10"}'
 
     # - name: Dispatch Build Success
     #   uses: benc-uk/workflow-dispatch@v1
