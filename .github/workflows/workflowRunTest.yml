@@ -18,7 +18,7 @@ jobs:
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
     env:
-      DEFAULT_BRANCH: ${{ $(echo ${GITHUB_REF#refs/heads/}) }}
+      DEFAULT_BRANCH: $(echo GITHUB_REF#refs/heads/)
       
     if: |
       always() &&
