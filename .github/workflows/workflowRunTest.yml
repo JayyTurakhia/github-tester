@@ -17,14 +17,13 @@ jobs:
     
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
+    env:
+      DEFAULT_BRANCH: ${GITHUB_REF#refs/heads/}
     if: |
       always() &&
       (github.event.workflow_run.conclusion == 'success') && 
-      (github.event.workflow_run.head_branch == '$(echo ${GITHUB_REF#refs/heads/})')
+      (github.event.workflow_run.head_branch == {{ env.DEFAULT_BRANCH }})
     
-    env:
-      MY_HOOK: ${{secrets.HOOK}}
-
     steps:
         - name: Notify on Build Failure
           uses: skitionek/notify-microsoft-teams@master
@@ -47,7 +46,8 @@ jobs:
   notify-on-fail-test-val:
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
-    
+    env:
+      DEFAULT_BRANCH: ${GITHUB_REF#refs/heads/}
     steps:
       - name: Print values
         run: |
@@ -55,6 +55,6 @@ jobs:
           echo ${GITHUB_REF#refs/heads/}
           echo ${{github.event.workflow_run.conclusion}}
           echo ${{github.event.workflow_run}}
-          echo ${{ (github.event.workflow_run.head_branch=='${GITHUB_REF#refs/heads/}') }}
+          echo ${{ (github.event.workflow_run.head_branch== {{ env.DEFAULT_BRANCH }} ) }}
             
   
