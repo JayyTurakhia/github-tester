@@ -55,7 +55,7 @@ jobs:
           echo ${{github.event.workflow_run.head_branch}}
           echo ${GITHUB_REF#refs/heads/}
           echo ${{github.event.workflow_run.conclusion}}
-          echo ${{git remote show origin | awk '/HEAD branch/ {print $NF}' }}
+          echo ${{ (git remote show origin | awk '/HEAD branch/ {print $NF}' ) }}
           echo ${{ github.event.workflow_run.head_branch== '{{ env.DEFAULT_BRANCH }}' }}
             
   
