@@ -10,7 +10,7 @@ on:
       - completed
 
 jobs:
-  notify-on-fail-test:
+  notify-on-fail-test-val:
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
     
