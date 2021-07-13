@@ -16,34 +16,31 @@ jobs:
     timeout-minutes: 2
 
     steps:
-        - name: Determine Master Branch
-          uses: skitionek/notify-microsoft-teams@master
-          with:
-            webhook_url: ${{secrets.HOOK_URI}}
-            overwrite: "{title: `Build failed on master ${{github.repository}}`}"
-            needs: ${{ toJson(needs) }}
-            job: "{\"status\": \"failure\"}"
-            steps: ${{ toJson(steps) }}
-            
-        - name: Notify dedicated teams channel
-          uses: jdcargile/ms-teams-notification@v1.3
-          with:
-            github-token: ${{ github.token }} # this will use the runner's token.
-            ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
-            notification-summary: Build Failure notification 
-            notification-color: 17a2b8
-            timezone: America/New_York
-
-  notify-on-fail-test-val:
-    runs-on: [ubuntu-latest]
-    timeout-minutes: 2
-    steps:
-      - name: Print values
+      - name: Determine default branch
         run: |
-          echo ${{github.event.workflow_run.head_branch}}
-          echo ${GITHUB_REF#refs/heads/}
-          echo ${{github.event.workflow_run.conclusion}}
-          echo $default-branch
-          echo ${{ github.event.workflow_run.head_branch== $default_branch }}
+          DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+          echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
+          
+      - name: Notify dedicated teams channel
+        if: ${{ steps.slncheck.outputs.result == 0  && github.ref != env.default_branch_ref }}
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
+          notification-summary: Build Failure notification 
+          notification-color: 17a2b8
+          timezone: America/New_York
+
+#   notify-on-fail-test-val:
+#     runs-on: [ubuntu-latest]
+#     timeout-minutes: 2
+#     steps:
+#       - name: Print values
+#         run: |
+#           echo ${{github.event.workflow_run.head_branch}}
+#           echo ${GITHUB_REF#refs/heads/}
+#           echo ${{github.event.workflow_run.conclusion}}
+#           echo $default-branch
+#           echo ${{ github.event.workflow_run.head_branch== $default_branch }}
             
   
