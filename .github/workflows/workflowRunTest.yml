@@ -19,10 +19,11 @@ jobs:
     timeout-minutes: 2
     env:
       DEFAULT_BRANCH: ${GITHUB_REF#refs/heads/}
+      
     if: |
       always() &&
       (github.event.workflow_run.conclusion == 'success') && 
-      (github.event.workflow_run.head_branch == {{ env.DEFAULT_BRANCH }})
+      (github.event.workflow_run.head_branch == '{{ env.DEFAULT_BRANCH }}')
     
     steps:
         - name: Notify on Build Failure
