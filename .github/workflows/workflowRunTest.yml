@@ -46,7 +46,8 @@ jobs:
             "sections": [{
                 "activityTitle": "Build Failure Notification",
                 "activitySubtitle": "xyz",
-                "activityImage": "https://teamsnodesample.azurewebsites.net/static/img/image5.png",
+                "activityImage": "${github.event.sender.avatar_url}"
+                #"activityImage": "https://teamsnodesample.azurewebsites.net/static/img/image5.png",
                 "facts": [{
                     "name": "Build Triggered by",
                     "value": "${github.event.workflow.committer}"
@@ -70,20 +71,7 @@ jobs:
                     "name": "Add comment",
                     "target": "https://docs.microsoft.com/outlook/actionable-messages"
                 }]
-            }, {
-                "@type": "ActionCard",
-                "name": "Set due date",
-                "inputs": [{
-                    "@type": "DateInput",
-                    "id": "dueDate",
-                    "title": "Enter a due date for this task"
-                }],
-                "actions": [{
-                    "@type": "HttpPOST",
-                    "name": "Save",
-                    "target": "https://docs.microsoft.com/outlook/actionable-messages"
-                }]
-            }, {
+            },{
                 "@type": "OpenUri",
                 "name": "Failing Build",
                 "targets": [{
