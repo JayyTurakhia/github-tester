@@ -1,0 +1,115 @@
+# This workflow runs on completion of the 'workflows' listed
+# If any of it "failed" on "master" it will send a teams notification
+name: Notification
+on:
+  workflow_run:
+    workflows: 
+      - .NET Core
+      - Full Framework
+      - Post Build Success
+      - Trigger Workflow
+    types: 
+      - completed
+
+jobs:
+  notify-on-fail-test:
+    if: github.event.workflow_run.conclusion == 'failure'
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 2
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build Failure Details
+        run: |
+          echo "Build Run - ${{github.event.workflow_run.html_url}}"
+          echo "Build Failed on - ${{github.event.workflow_run.head_branch}}"
+          echo "Committer1 - ${{github.event.workflow_run.sender.avatar_url}}"
+          echo "Committer2 - ${{github.event.sender.avatar_url}}"
+          echo "Committer3 - ${{github.event.workflow_run.head_commit.author.avatar_url}}"
+          echo "Committer4 - ${{github.event.workflow_run.head_commit.author.name}}"
+      
+      - name: Determine default branch
+        run: |
+          DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+          echo "default_branch_ref=$DEFAULT_BRANCH" >> $GITHUB_ENV
+      
+      - uses: hmarr/debug-action@v2
+      
+      - name: Microsoft Teams Notification22
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.HOOK_URI }}
+          raw: >-
+            {
+            "@type": "MessageCard",
+            "@context": "http://schema.org/extensions",
+            "themeColor": "0076D7",
+            "summary": "Larry Bryant created a new task123",
+            "sections": [{
+                "activityTitle": "Build Failure Notification",
+                "activityImage": "${{github.event.sender.avatar_url}}",
+                "facts": [{
+                    "name": "Build Triggered by",
+                    "value": " ${{github.event.workflow_run.head_commit.author.name}} "
+                }, {
+                    "name": "Status",
+                    "value": "Failed"
+                }],
+                "markdown": true
+            }],
+            "potentialAction": [{
+                "@type": "OpenUri",
+                "name": "Failing Build",
+                "targets": [{
+                    "os": "default",
+                    "uri": "${{github.event.workflow_run.html_url}}"
+                }]
+            }, {
+                "@type": "ActionCard",
+                "name": "Change status",
+                "inputs": [{
+                    "@type": "MultichoiceInput",
+                    "id": "list",
+                    "title": "Select a status",
+                    "isMultiSelect": "false",
+                    "choices": [{
+                        "display": "In Progress",
+                        "value": "1"
+                    }, {
+                        "display": "Active",
+                        "value": "2"
+                    }, {
+                        "display": "Closed",
+                        "value": "3"
+                    }]
+                }],
+                "actions": [{
+                    "@type": "HttpPOST",
+                    "name": "Save",
+                    "target": "https://docs.microsoft.com/outlook/actionable-messages"
+                  }]
+              }]
+            }
+              
+      - name: Notify dedicated teams channel
+        if: github.event.workflow_run.head_branch == env.default_branch_ref
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
+          notification-summary: "Build Failure notification - ${{github.event.workflow_run.html_url}}" 
+          notification-color: 17a2b8
+          timezone: America/New_York
+          
+  notify-on-fail-test-val:
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 2
+    steps:
+      
+      - name: Print values
+        run: |
+          echo ${{github.event.workflow_run.head_branch}}
+          echo ${GITHUB_REF#refs/heads/}
+          echo ${{github.event.workflow_run.html_url}}
