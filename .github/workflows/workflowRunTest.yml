@@ -43,6 +43,18 @@ jobs:
                 "title": "No x avaliable in here"
               }
               
+      - name: Microsoft Teams Notification22
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          raw: >-
+            {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "title": "No s avaliable in here"
+            }
+              
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
         if: always()
