@@ -18,36 +18,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: Build Failure Details
+        run: |
+          echo "Build Run - ${{github.event.workflow_run.html_url}}"
+          echo "Build Failed on - ${{github.event.workflow_run.head_branch}}"
+      
       - name: Determine default branch
         run: |
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
-          echo $DEFAULT_BRANCH
           echo "default_branch_ref=$DEFAULT_BRANCH" >> $GITHUB_ENV
       
-      - uses: hmarr/debug-action@v2
-      
-#       - name: Build Message
-#         run:
-#           msg=echo ${{github.event.workflow_run.html_url}}
-#           echo "custom_message=Build Failure - $msg" >> $GITHUB_ENV
-          
-          
+      #- uses: hmarr/debug-action@v2
+        
       - name: Notify dedicated teams channel
         if: github.event.workflow_run.head_branch == env.default_branch_ref
         uses: jdcargile/ms-teams-notification@v1.3
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
-          notification-summary: "Build Failure notification ${{github.event.workflow_run.html_url}}" 
+          notification-summary: "Build Failure notification" 
           notification-color: 17a2b8
           timezone: America/New_York
           
-      - name: Print values
-        run: |
-          echo ${{github.event.workflow_run.head_branch}}
-          echo ${GITHUB_REF#refs/heads/}
-          echo ${{github.event.workflow_run.html_url}}     
-
+     
   notify-on-fail-test-val:
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
@@ -57,5 +50,4 @@ jobs:
         run: |
           echo ${{github.event.workflow_run.head_branch}}
           echo ${GITHUB_REF#refs/heads/}
-          echo ${{github.event.workflow_run.html_url}}            
-  
+          echo ${{github.event.workflow_run.html_url}}
