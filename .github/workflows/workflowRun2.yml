@@ -45,8 +45,8 @@ jobs:
             {
             "@type": "MessageCard",
             "@context": "http://schema.org/extensions",
-            "themeColor": "0076D7",
-            "summary": "Larry Bryant created a new task123",
+            "themeColor": "010101",
+            "summary": "Build Failure Notification",
             "sections": [{
                 "activityTitle": "Build Failure Notification",
                 "activityImage": "${{github.event.sender.avatar_url}}",
@@ -56,6 +56,9 @@ jobs:
                 }, {
                     "name": "Repo Name",
                     "value": "${{github.event.repository.name}}"
+                }, {
+                    "name": "Failed Workflow Name",
+                    "value": "${{github.event.workflow.name}}"
                 }],
                 "markdown": true
             }],
@@ -70,23 +73,12 @@ jobs:
               }]
             }
               
-      - name: Notify dedicated teams channel
-        if: github.event.workflow_run.head_branch == env.default_branch_ref
-        uses: jdcargile/ms-teams-notification@v1.3
-        with:
-          github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
-          notification-summary: "Build Failure notification - ${{github.event.workflow_run.html_url}}" 
-          notification-color: 17a2b8
-          timezone: America/New_York
-          
-  notify-on-fail-test-val:
-    runs-on: [ubuntu-latest]
-    timeout-minutes: 2
-    steps:
-      
-      - name: Print values
-        run: |
-          echo ${{github.event.workflow_run.head_branch}}
-          echo ${GITHUB_REF#refs/heads/}
-          echo ${{github.event.workflow_run.html_url}}
+#       - name: Notify dedicated teams channel
+#         if: github.event.workflow_run.head_branch == env.default_branch_ref
+#         uses: jdcargile/ms-teams-notification@v1.3
+#         with:
+#           github-token: ${{ github.token }} # this will use the runner's token.
+#           ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
+#           notification-summary: "Build Failure notification - ${{github.event.workflow_run.html_url}}" 
+#           notification-color: 17a2b8
+#           timezone: America/New_York
