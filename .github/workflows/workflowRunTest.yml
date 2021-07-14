@@ -36,7 +36,7 @@ jobs:
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
-          notification-summary: "Build Failure notification" 
+          notification-summary: "Build Failure notification - ${{github.event.workflow_run.head_branch}}" 
           notification-color: 17a2b8
           timezone: America/New_York
           
