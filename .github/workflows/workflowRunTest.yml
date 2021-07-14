@@ -33,7 +33,7 @@ jobs:
           
           
       - name: Notify dedicated teams channel
-        if: ${{ github.event.workflow_run.head_branch == env.default_branch_ref }}
+        if: github.event.workflow_run.head_branch == env.default_branch_ref
         uses: jdcargile/ms-teams-notification@v1.3
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
