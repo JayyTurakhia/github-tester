@@ -43,7 +43,7 @@ jobs:
           webhook_url: ${{ secrets.HOOK_URI }}
           raw: >-
             {
-            "@title": "Build Failure Notification",
+            "@name": "Build Failure Notification",
             "@type": "MessageCard",
             "@context": "http://schema.org/extensions",
             "themeColor": "010101",
