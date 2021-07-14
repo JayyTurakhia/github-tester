@@ -42,5 +42,5 @@ jobs:
         run: |
           echo ${{github.event.workflow_run.head_branch}}
           echo ${GITHUB_REF#refs/heads/}
-          echo ${{github.event.workflow_run.workflow.name}}            
+          echo ${{github.event.workflow.html_url}}            
   
