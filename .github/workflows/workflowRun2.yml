@@ -41,6 +41,7 @@ jobs:
         if: always()
         with:
           webhook_url: ${{ secrets.HOOK_URI }}
+          overwrite: "{title: `Build Failure Notification - ${{github.event.repository.name}}`}"
           raw: >-
             {
             "@type": "MessageCard",
@@ -57,7 +58,7 @@ jobs:
                     "name": "Repo Name",
                     "value": "${{github.event.repository.name}}"
                 }, {
-                    "name": "Failed Workflow Name",
+                    "name": "Failing Workflow Name",
                     "value": "${{github.event.workflow.name}}"
                 }],
                 "markdown": true
