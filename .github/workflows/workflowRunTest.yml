@@ -49,7 +49,6 @@ jobs:
             "summary": "Larry Bryant created a new task123",
             "sections": [{
                 "activityTitle": "Build Failure Notification",
-                "activitySubtitle": "xyz",
                 "activityImage": "${{github.event.sender.avatar_url}}",
                 "facts": [{
                     "name": "Build Triggered by",
@@ -61,20 +60,6 @@ jobs:
                 "markdown": true
             }],
             "potentialAction": [{
-                "@type": "ActionCard",
-                "name": "Add a comment",
-                "inputs": [{
-                    "@type": "TextInput",
-                    "id": "comment",
-                    "isMultiline": false,
-                    "title": "Add a comment here for this task"
-                }],
-                "actions": [{
-                    "@type": "HttpPOST",
-                    "name": "Add comment",
-                    "target": "https://docs.microsoft.com/outlook/actionable-messages"
-                }]
-            },{
                 "@type": "OpenUri",
                 "name": "Failing Build",
                 "targets": [{
