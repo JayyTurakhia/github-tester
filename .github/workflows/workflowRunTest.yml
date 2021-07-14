@@ -26,7 +26,7 @@ jobs:
           echo "Build Failed on - ${{github.event.workflow_run.head_branch}}"
           echo "Committer - ${{github.event.workflow_run.sender.avatar_url}}"
           echo "Committer2 - ${{github.event.workflow_run.sender.avatar_url}}"
-          echo "Committer2 - ${{github.event.workflow_run.author.avatar_url}}"
+          echo "Committer2 - ${{github.event.workflow_run.head_commit.author.avatar_url}}"
           echo "Committer2 - ${{github.event.workflow_run.head_commit.author.name}}"
       
       - name: Determine default branch
@@ -50,10 +50,10 @@ jobs:
             "sections": [{
                 "activityTitle": "Build Failure Notification",
                 "activitySubtitle": "xyz",
-                "activityImage": "${github.event.sender.avatar_url}",
+                "activityImage": "${{github.event.workflow_run.head_commit.author.avatar_url}}",
                 "facts": [{
                     "name": "Build Triggered by",
-                    "value": "${github.event.workflow.committer}"
+                    "value": " ${{github.event.workflow_run.head_commit.author.name}} "
                 }, {
                     "name": "Status",
                     "value": "Failed"
