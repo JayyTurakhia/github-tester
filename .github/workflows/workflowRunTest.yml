@@ -31,18 +31,6 @@ jobs:
           echo "default_branch_ref=$DEFAULT_BRANCH" >> $GITHUB_ENV
       
       #- uses: hmarr/debug-action@v2
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.HOOK_URI }}
-          raw: |
-              { 
-                "@type": "MessageCard",
-                "@context": "http://schema.org/extensions",
-                "title": "No x avaliable in here"
-              }
-              
       - name: Microsoft Teams Notification22
         uses: skitionek/notify-microsoft-teams@master
         if: always()
@@ -53,20 +41,17 @@ jobs:
             "@type": "MessageCard",
             "@context": "http://schema.org/extensions",
             "themeColor": "0076D7",
-            "summary": "Larry Bryant created a new task",
+            "summary": "Larry Bryant created a new task123",
             "sections": [{
-                "activityTitle": "Larry Bryant created a new task",
-                "activitySubtitle": "On Project Tango",
+                "activityTitle": "Build Failure Notification",
+                "activitySubtitle": "xyz",
                 "activityImage": "https://teamsnodesample.azurewebsites.net/static/img/image5.png",
                 "facts": [{
-                    "name": "Assigned to",
-                    "value": "Unassigned"
-                }, {
-                    "name": "Due date",
-                    "value": "Mon May 01 2017 17:07:18 GMT-0700 (Pacific Daylight Time)"
+                    "name": "Build Triggered by",
+                    "value": "${github.event.workflow.committer}"
                 }, {
                     "name": "Status",
-                    "value": "Not started"
+                    "value": "Failed"
                 }],
                 "markdown": true
             }],
@@ -99,10 +84,10 @@ jobs:
                 }]
             }, {
                 "@type": "OpenUri",
-                "name": "Learn More",
+                "name": "Failing Build",
                 "targets": [{
                     "os": "default",
-                    "uri": "https://docs.microsoft.com/outlook/actionable-messages"
+                    "uri": "${{github.event.workflow_run.html_url}}"
                 }]
             }, {
                 "@type": "ActionCard",
@@ -131,14 +116,6 @@ jobs:
               }]
             }
               
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.HOOK_URI }}
-          raw: "{\"@type\": \"MessageCard\", \"@context\": \"http://schema.org/extensions\", \"title\": \"No x avaliable in here\" }"
-
-  
       - name: Notify dedicated teams channel
         if: github.event.workflow_run.head_branch == env.default_branch_ref
         uses: jdcargile/ms-teams-notification@v1.3
