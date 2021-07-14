@@ -39,7 +39,5 @@ jobs:
         run: |
           echo ${{github.event.workflow_run.head_branch}}
           echo ${GITHUB_REF#refs/heads/}
-          echo ${{github.event.workflow_run.workflow}}
-          echo ${{ github.event.workflow_run.head_branch== $default_branch }}
-            
+          echo ${{github.event.workflow_run.workflow}}            
   
