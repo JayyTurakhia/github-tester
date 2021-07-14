@@ -1,3 +1,5 @@
+# This workflow runs on completion of the 'workflows' listed
+# If any of it "failed" on "master" it will send a teams notification
 name: Notification
 on:
   workflow_run:
@@ -29,7 +31,25 @@ jobs:
           echo "default_branch_ref=$DEFAULT_BRANCH" >> $GITHUB_ENV
       
       #- uses: hmarr/debug-action@v2
-        
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          raw: >-
+            {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "title": "No ${variables} avaliable in here"
+              potentialAction: [
+              {
+                '@context': 'http://schema.org',
+                target: [`${{github.event.workflow_run.html_url}}`],
+                '@type': 'ViewAction',
+                name: 'View Workflow Run'
+              }
+             }
+  
       - name: Notify dedicated teams channel
         if: github.event.workflow_run.head_branch == env.default_branch_ref
         uses: jdcargile/ms-teams-notification@v1.3
@@ -40,7 +60,6 @@ jobs:
           notification-color: 17a2b8
           timezone: America/New_York
           
-     
   notify-on-fail-test-val:
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
