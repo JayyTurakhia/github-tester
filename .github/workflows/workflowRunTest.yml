@@ -36,11 +36,11 @@ jobs:
         if: always()
         with:
           webhook_url: ${{ secrets.HOOK_URI }}
-          raw: |
+          raw: >-
             {
               "@type": "MessageCard",
               "@context": "http://schema.org/extensions",
-              "title": "No ${variables} avaliable in here"
+              "title": "No ${variables} avaliable in here",
               potentialAction: [
               {
                 '@context': 'http://schema.org',
