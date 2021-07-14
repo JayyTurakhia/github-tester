@@ -38,9 +38,9 @@ jobs:
           webhook_url: ${{ secrets.HOOK_URI }}
           raw: >-
               { 
-                "@type": "MessageCard",\n
-                "@context": "http://schema.org/extensions",\n
-                "title": "No x avaliable in here"\n
+                "@type": "MessageCard",
+                "@context": "http://schema.org/extensions",
+                "title": "No x avaliable in here"
               }
               
       - name: Microsoft Teams Notification
@@ -48,12 +48,7 @@ jobs:
         if: always()
         with:
           webhook_url: ${{ secrets.HOOK_URI }}
-          raw: >-
-              { 
-                "@type": "MessageCard",\n
-                "@context": "http://schema.org/extensions",\n
-                "title": "No x avaliable in here"\n
-              }
+          raw: "{\"@type\": \"MessageCard\", \"@context\": \"http://schema.org/extensions\", \"title\": \"No x avaliable in here\" }"
 
   
       - name: Notify dedicated teams channel
