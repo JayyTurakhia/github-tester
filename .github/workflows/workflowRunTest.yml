@@ -46,8 +46,8 @@ jobs:
             "sections": [{
                 "activityTitle": "Build Failure Notification",
                 "activitySubtitle": "xyz",
-                "activityImage": "${github.event.sender.avatar_url}"
-                #"activityImage": "https://teamsnodesample.azurewebsites.net/static/img/image5.png",
+                "activityImage": "${github.event.sender.avatar_url}",
+                # "activityImage": "https://teamsnodesample.azurewebsites.net/static/img/image5.png",
                 "facts": [{
                     "name": "Build Triggered by",
                     "value": "${github.event.workflow.committer}"
