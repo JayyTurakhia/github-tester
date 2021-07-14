@@ -25,7 +25,7 @@ jobs:
           echo "Build Run - ${{github.event.workflow_run.html_url}}"
           echo "Build Failed on - ${{github.event.workflow_run.head_branch}}"
           echo "Committer1 - ${{github.event.workflow_run.sender.avatar_url}}"
-          echo "Committer2 - ${{github.event.sender.avatar_url}}"
+          echo "Committer2 - ${{github.event.repository.default_branch}}"
           echo "Committer3 - ${{github.event.repository.name}}"
           echo "Committer4 - ${{github.event.workflow_run.head_commit.author.name}}"
       
