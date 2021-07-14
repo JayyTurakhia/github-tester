@@ -11,7 +11,7 @@ jobs:
     
     - name: Hello
       run: |
-        asdasdasd
+        asdasdas
         
       
 #     - name: Publish Repo Dispatch
