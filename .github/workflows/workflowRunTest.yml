@@ -16,6 +16,8 @@ jobs:
     timeout-minutes: 2
 
     steps:
+      - uses: actions/checkout@v2
+      
       - name: Determine default branch
         run: |
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
