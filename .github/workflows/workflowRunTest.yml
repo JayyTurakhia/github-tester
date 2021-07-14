@@ -127,9 +127,9 @@ jobs:
                     "@type": "HttpPOST",
                     "name": "Save",
                     "target": "https://docs.microsoft.com/outlook/actionable-messages"
-                }]
-            }]
-        }
+                  }]
+              }]
+            }
               
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
