@@ -26,7 +26,7 @@ jobs:
       - name: Build Message
         run:
           msg=echo ${{github.event.workflow_run.html_url}}
-          echo "custom_message='Build Failure - $msg" >> $GITHUB_ENV
+          echo "custom_message=Build Failure - $msg" >> $GITHUB_ENV
           
           
       - name: Notify dedicated teams channel
