@@ -41,7 +41,6 @@ jobs:
               "@type": "MessageCard",
               "@context": "http://schema.org/extensions",
               "title": "No ${variables} avaliable in here",
-              "potentialAction": "{\"@context\": \"http://schema.org\",target: \"${{github.event.workflow_run.html_url}}\", \"@type\": \"ViewAction\", name: \"View Workflow Run\"}"
              }
   
       - name: Notify dedicated teams channel
