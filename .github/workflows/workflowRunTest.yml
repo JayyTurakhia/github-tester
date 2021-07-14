@@ -50,7 +50,7 @@ jobs:
             "sections": [{
                 "activityTitle": "Build Failure Notification",
                 "activitySubtitle": "xyz",
-                "activityImage": "${{github.event.workflow_run.head_commit.author.avatar_url}}",
+                "activityImage": "${{github.event.sender.avatar_url}}",
                 "facts": [{
                     "name": "Build Triggered by",
                     "value": " ${{github.event.workflow_run.head_commit.author.name}} "
