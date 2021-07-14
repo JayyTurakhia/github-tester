@@ -22,14 +22,20 @@ jobs:
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
       
       - uses: hmarr/debug-action@v2
+      
+      - name: Build Message
+        run:
+          msg=echo ${{github.event.workflow_run.html_url}}
+          echo "custom_message='Build Failure - ${msg}" >> $GITHUB_ENV
+          
           
       - name: Notify dedicated teams channel
-        if: ${{ steps.slncheck.outputs.result == 0  && github.ref != env.default_branch_ref }}
+        if: ${{ github.ref == env.default_branch_ref }}
         uses: jdcargile/ms-teams-notification@v1.3
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.HOOK_URI }}
-          notification-summary: Build Failure notification 
+          notification-summary: "Build Failure notification ${{github.event.workflow_run.html_url}}" 
           notification-color: 17a2b8
           timezone: America/New_York
           
