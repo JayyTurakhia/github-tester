@@ -66,8 +66,7 @@ jobs:
                     "os": "default",
                     "uri": "${{github.event.workflow_run.html_url}}"
                 }]
-            }]
-                
+               
               }]
             }
               
