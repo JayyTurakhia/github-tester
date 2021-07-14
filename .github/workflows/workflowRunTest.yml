@@ -20,6 +20,8 @@ jobs:
         run: |
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
+      
+      - uses: hmarr/debug-action@v2
           
       - name: Notify dedicated teams channel
         if: ${{ steps.slncheck.outputs.result == 0  && github.ref != env.default_branch_ref }}
@@ -35,6 +37,7 @@ jobs:
     runs-on: [ubuntu-latest]
     timeout-minutes: 2
     steps:
+      
       - name: Print values
         run: |
           echo ${{github.event.workflow_run.head_branch}}
