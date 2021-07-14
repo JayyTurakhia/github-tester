@@ -30,7 +30,8 @@ jobs:
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
           echo "default_branch_ref=$DEFAULT_BRANCH" >> $GITHUB_ENV
       
-      #- uses: hmarr/debug-action@v2
+      - uses: hmarr/debug-action@v2
+      
       - name: Microsoft Teams Notification22
         uses: skitionek/notify-microsoft-teams@master
         if: always()
