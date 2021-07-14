@@ -37,11 +37,12 @@ jobs:
         with:
           webhook_url: ${{ secrets.HOOK_URI }}
           raw: >-
-            {
-              "@type": "MessageCard",
-              "@context": "http://schema.org/extensions",
-              "title": "No variables avaliable in here"
-             }
+              {
+                "@type": "MessageCard",
+                "@context": "http://schema.org/extensions",
+                "title": "No ${variables} avaliable in here"
+              }
+
   
       - name: Notify dedicated teams channel
         if: github.event.workflow_run.head_branch == env.default_branch_ref
