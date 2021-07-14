@@ -22,7 +22,7 @@ jobs:
         run: |
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
           echo $DEFAULT_BRANCH
-          echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
+          echo "default_branch_ref=$DEFAULT_BRANCH" >> $GITHUB_ENV
       
       - uses: hmarr/debug-action@v2
       
