@@ -32,6 +32,12 @@ jobs:
           notification-summary: Build Failure notification 
           notification-color: 17a2b8
           timezone: America/New_York
+          
+      - name: Print values
+        run: |
+          echo ${{github.event.workflow_run.head_branch}}
+          echo ${GITHUB_REF#refs/heads/}
+          echo ${{github.event.workflow_run.html_url}}     
 
   notify-on-fail-test-val:
     runs-on: [ubuntu-latest]
