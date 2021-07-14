@@ -7,7 +7,6 @@ on:
       - .NET Core
       - Full Framework
       - Post Build Success
-      - Trigger Workflow
     types: 
       - completed
 
