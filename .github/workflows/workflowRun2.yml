@@ -41,9 +41,9 @@ jobs:
         if: always()
         with:
           webhook_url: ${{ secrets.HOOK_URI }}
-          overwrite: "{title: `Build Failure Notification - ${{github.event.repository.name}}`}"
           raw: >-
             {
+            "@title": "Build Failure Notification",
             "@type": "MessageCard",
             "@context": "http://schema.org/extensions",
             "themeColor": "010101",
