@@ -47,7 +47,7 @@ jobs:
                 target: [`${{github.event.workflow_run.html_url}}`],
                 '@type': 'ViewAction',
                 name: 'View Workflow Run'
-              }
+              }]
              }
   
       - name: Notify dedicated teams channel
