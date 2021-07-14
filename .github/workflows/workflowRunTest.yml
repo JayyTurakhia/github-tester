@@ -37,10 +37,22 @@ jobs:
         with:
           webhook_url: ${{ secrets.HOOK_URI }}
           raw: >-
-              {
-                "@type": "MessageCard",
-                "@context": "http://schema.org/extensions",
-                "title": "No x avaliable in here"
+              { 
+                "@type": "MessageCard",\n
+                "@context": "http://schema.org/extensions",\n
+                "title": "No x avaliable in here"\n
+              }
+              
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.HOOK_URI }}
+          raw: >-
+              { 
+                "@type": "MessageCard",\n
+                "@context": "http://schema.org/extensions",\n
+                "title": "No x avaliable in here"\n
               }
 
   
