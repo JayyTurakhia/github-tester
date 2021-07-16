@@ -13,8 +13,10 @@ jobs:
   listener-work:
     runs-on: ubuntu-latest
     timeout-minutes: 2
-
+    
     steps:
+    - uses: hmarr/debug-action@v2
+    
     - name: Dispatch Build Success
       run: |
         echo "Yes1"
