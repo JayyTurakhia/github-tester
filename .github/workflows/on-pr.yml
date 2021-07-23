@@ -25,7 +25,7 @@ jobs:
           # Print each value of the array by using the loop
           for val in "${strarr[@]}";
           do
-            printf "${$val/"-rc"/}"
+            printf "${$val/'-rc'/''}"
           done
 
           
