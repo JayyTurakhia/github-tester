@@ -12,6 +12,7 @@ jobs:
       
       - shell: bash
         run: |
+          #!/bin/bash
           text="ix/sample:1.1.2-rc"
 
           # Set space as the delimiter
