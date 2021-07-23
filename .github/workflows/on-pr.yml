@@ -13,7 +13,6 @@ jobs:
       
       - run: |
           text="ix/sample:1.1.2-rc"
-          ${which sh}
           # Set space as the delimiter
           IFS=':'
 
@@ -26,7 +25,7 @@ jobs:
           # Print each value of the array by using the loop
           for val in "${strarr[@]}";
           do
-            echo "${$val/"-rc"/"x"}"
+            echo "${val//"-rc"/"x"}"
           done
 
           
