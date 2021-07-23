@@ -1,6 +1,7 @@
 name: Trigger Workflow
 on:
   push:
+    branches: ["xyz]
 
 jobs:
   trigger-build:
