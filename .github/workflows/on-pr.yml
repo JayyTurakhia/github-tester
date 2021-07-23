@@ -13,7 +13,7 @@ jobs:
       
       
       - run: |
-          text="ix/sample:1.1.2-rc"
+          text=${{github.event.pull_request.body}}
           # Set space as the delimiter
           IFS=':'
 
