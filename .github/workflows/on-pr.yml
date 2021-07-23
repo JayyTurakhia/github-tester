@@ -1,6 +1,7 @@
 name: Triggered on PR
 on:
-  push
+  push:
+  pull_request:
 
 jobs:
   trigger-build:
