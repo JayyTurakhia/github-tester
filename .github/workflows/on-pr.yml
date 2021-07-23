@@ -10,7 +10,8 @@ jobs:
     steps:  
       - uses: hmarr/debug-action@v2
       
-      - run: |
+      - shell: bash
+        run: |
           text="ix/sample:1.1.2-rc"
 
           # Set space as the delimiter
