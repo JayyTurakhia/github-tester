@@ -1,0 +1,11 @@
+name: Trigger Workflow
+on:
+  pull_request
+
+jobs:
+  trigger-build:
+    runs-on: ubuntu-latest 
+    timeout-minutes: 2
+    
+    steps:  
+      - uses: hmarr/debug-action@v2
