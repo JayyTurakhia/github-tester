@@ -11,10 +11,10 @@ jobs:
       - uses: hmarr/debug-action@v2
       
       - run: |
-          text="Welcome to LinuxHint"
+          text="ix/sample:1.1.2-rc"
 
           # Set space as the delimiter
-          IFS=' '
+          IFS=':'
 
           #Read the split words into an array based on space delimiter
           read -a strarr <<< "$text"
@@ -25,7 +25,7 @@ jobs:
           # Print each value of the array by using the loop
           for val in "${strarr[@]}";
           do
-            printf "$val\n"
+            printf "$($val/"-rc"/)"
           done
 
           
