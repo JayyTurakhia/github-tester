@@ -8,6 +8,8 @@ jobs:
     timeout-minutes: 2
 
     steps:
+    - uses: hmarr/debug-action@v2
+    
     - name: Publish Repo Dispatch
       uses: peter-evans/repository-dispatch@v1
       with:
