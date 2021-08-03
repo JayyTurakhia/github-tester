@@ -14,7 +14,6 @@ jobs:
       - run:
           echo ${GITHUB_RUN_ID}
           echo "${GITHUB_RUN_ID}"
-          echo "${${GITHUB_RUN_ID}}"
       
       - run: |
           text=${{github.event.pull_request.body}}
